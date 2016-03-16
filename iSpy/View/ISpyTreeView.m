@@ -210,7 +210,6 @@ static const CGFloat kISpySectionFontSize = 16;
     if (headerView == nil) {
         [tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:cellID];
         headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:cellID];
-        headerView.backgroundColor = [ISpyViewConfig defaultConfig].backgroundColor;
     }
     if (!headerView.backgroundView) {
         UIView *backView = [[UIView alloc] init];
