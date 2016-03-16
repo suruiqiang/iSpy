@@ -1,0 +1,482 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5465C740A012AA13FBE69B55 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D5072772AA474429B9CEBB3 /* libPods.a */; };
+		B168A1DF1C91801D000BF096 /* ISpyViewTreeScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = B168A1DE1C91801D000BF096 /* ISpyViewTreeScanner.m */; };
+		B168A1E21C929D41000BF096 /* ISpyTreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B168A1E11C929D41000BF096 /* ISpyTreeView.m */; };
+		B168A1E51C92D10D000BF096 /* ISpyTreeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B168A1E41C92D10D000BF096 /* ISpyTreeViewCell.m */; };
+		B168A1E81C96C349000BF096 /* UIView+ISpyPlaceHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = B168A1E71C96C349000BF096 /* UIView+ISpyPlaceHolder.m */; };
+		B175FA331C05D48F0004666B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B175FA321C05D48F0004666B /* main.m */; };
+		B175FA361C05D48F0004666B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B175FA351C05D48F0004666B /* AppDelegate.m */; };
+		B175FA391C05D48F0004666B /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B175FA381C05D48F0004666B /* MainViewController.m */; };
+		B175FA3C1C05D48F0004666B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B175FA3A1C05D48F0004666B /* Main.storyboard */; };
+		B175FA3E1C05D48F0004666B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B175FA3D1C05D48F0004666B /* Assets.xcassets */; };
+		B175FA411C05D48F0004666B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B175FA3F1C05D48F0004666B /* LaunchScreen.storyboard */; };
+		B175FA4B1C05D54A0004666B /* ISpy.m in Sources */ = {isa = PBXBuildFile; fileRef = B175FA4A1C05D54A0004666B /* ISpy.m */; };
+		B1B284711C2BB72900F0F6F3 /* ISpyMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B284701C2BB72900F0F6F3 /* ISpyMoreView.m */; };
+		B1ECE2341C109C7F00320289 /* MovieListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1ECE2331C109C7F00320289 /* MovieListViewController.m */; };
+		B1ECE2371C109E2700320289 /* MovieDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1ECE2361C109E2700320289 /* MovieDetailViewController.m */; };
+		B1F19C031C1929F400643820 /* UIView+ISpyLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F19BFA1C1929F400643820 /* UIView+ISpyLayer.m */; };
+		B1F19C051C1929F400643820 /* ISpyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F19C001C1929F400643820 /* ISpyView.m */; };
+		B1F19C0B1C192AE500643820 /* ISpyConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F19C071C192AE500643820 /* ISpyConfig.m */; };
+		B1F19C0C1C192AE500643820 /* ISpySystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F19C0A1C192AE500643820 /* ISpySystemInfo.m */; };
+		B1F19C0F1C192B8300643820 /* ISpyStatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1F19C0E1C192B8300643820 /* ISpyStatsView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0D5072772AA474429B9CEBB3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E26A38AF6A512C42EEA0D7D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B168A1DD1C91801D000BF096 /* ISpyViewTreeScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISpyViewTreeScanner.h; sourceTree = "<group>"; };
+		B168A1DE1C91801D000BF096 /* ISpyViewTreeScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISpyViewTreeScanner.m; sourceTree = "<group>"; };
+		B168A1E01C929D41000BF096 /* ISpyTreeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISpyTreeView.h; sourceTree = "<group>"; };
+		B168A1E11C929D41000BF096 /* ISpyTreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISpyTreeView.m; sourceTree = "<group>"; };
+		B168A1E31C92D10C000BF096 /* ISpyTreeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISpyTreeViewCell.h; sourceTree = "<group>"; };
+		B168A1E41C92D10D000BF096 /* ISpyTreeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISpyTreeViewCell.m; sourceTree = "<group>"; };
+		B168A1E61C96C349000BF096 /* UIView+ISpyPlaceHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ISpyPlaceHolder.h"; sourceTree = "<group>"; };
+		B168A1E71C96C349000BF096 /* UIView+ISpyPlaceHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ISpyPlaceHolder.m"; sourceTree = "<group>"; };
+		B175FA2E1C05D48F0004666B /* iSpyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iSpyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B175FA321C05D48F0004666B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B175FA341C05D48F0004666B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B175FA351C05D48F0004666B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B175FA371C05D48F0004666B /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		B175FA381C05D48F0004666B /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		B175FA3B1C05D48F0004666B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B175FA3D1C05D48F0004666B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B175FA401C05D48F0004666B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B175FA421C05D48F0004666B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B175FA491C05D54A0004666B /* ISpy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISpy.h; sourceTree = "<group>"; };
+		B175FA4A1C05D54A0004666B /* ISpy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISpy.m; sourceTree = "<group>"; };
+		B1B2846F1C2BB72900F0F6F3 /* ISpyMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISpyMoreView.h; sourceTree = "<group>"; };
+		B1B284701C2BB72900F0F6F3 /* ISpyMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISpyMoreView.m; sourceTree = "<group>"; };
+		B1ECE2321C109C7F00320289 /* MovieListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieListViewController.h; sourceTree = "<group>"; };
+		B1ECE2331C109C7F00320289 /* MovieListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieListViewController.m; sourceTree = "<group>"; };
+		B1ECE2351C109E2700320289 /* MovieDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieDetailViewController.h; sourceTree = "<group>"; };
+		B1ECE2361C109E2700320289 /* MovieDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieDetailViewController.m; sourceTree = "<group>"; };
+		B1F19BF91C1929F400643820 /* UIView+ISpyLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ISpyLayer.h"; sourceTree = "<group>"; };
+		B1F19BFA1C1929F400643820 /* UIView+ISpyLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ISpyLayer.m"; sourceTree = "<group>"; };
+		B1F19BFF1C1929F400643820 /* ISpyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISpyView.h; sourceTree = "<group>"; };
+		B1F19C001C1929F400643820 /* ISpyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISpyView.m; sourceTree = "<group>"; };
+		B1F19C061C192AE500643820 /* ISpyConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISpyConfig.h; sourceTree = "<group>"; };
+		B1F19C071C192AE500643820 /* ISpyConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISpyConfig.m; sourceTree = "<group>"; };
+		B1F19C081C192AE500643820 /* ISpyMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISpyMacros.h; sourceTree = "<group>"; };
+		B1F19C091C192AE500643820 /* ISpySystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISpySystemInfo.h; sourceTree = "<group>"; };
+		B1F19C0A1C192AE500643820 /* ISpySystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISpySystemInfo.m; sourceTree = "<group>"; };
+		B1F19C0D1C192B8300643820 /* ISpyStatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISpyStatsView.h; sourceTree = "<group>"; };
+		B1F19C0E1C192B8300643820 /* ISpyStatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISpyStatsView.m; sourceTree = "<group>"; };
+		ECF382B77794133DB8319A9C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B175FA2B1C05D48F0004666B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5465C740A012AA13FBE69B55 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B175FA251C05D48E0004666B = {
+			isa = PBXGroup;
+			children = (
+				B175FA481C05D4D90004666B /* iSpy */,
+				B175FA301C05D48F0004666B /* iSpyDemo */,
+				B175FA2F1C05D48F0004666B /* Products */,
+				C331E66D4CF2C93200BBC160 /* Pods */,
+				B5249887A1A329099298E3E7 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		B175FA2F1C05D48F0004666B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B175FA2E1C05D48F0004666B /* iSpyDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B175FA301C05D48F0004666B /* iSpyDemo */ = {
+			isa = PBXGroup;
+			children = (
+				B175FA341C05D48F0004666B /* AppDelegate.h */,
+				B175FA351C05D48F0004666B /* AppDelegate.m */,
+				B175FA371C05D48F0004666B /* MainViewController.h */,
+				B175FA381C05D48F0004666B /* MainViewController.m */,
+				B1ECE2321C109C7F00320289 /* MovieListViewController.h */,
+				B1ECE2331C109C7F00320289 /* MovieListViewController.m */,
+				B1ECE2351C109E2700320289 /* MovieDetailViewController.h */,
+				B1ECE2361C109E2700320289 /* MovieDetailViewController.m */,
+				B175FA3A1C05D48F0004666B /* Main.storyboard */,
+				B175FA3D1C05D48F0004666B /* Assets.xcassets */,
+				B175FA3F1C05D48F0004666B /* LaunchScreen.storyboard */,
+				B175FA421C05D48F0004666B /* Info.plist */,
+				B175FA311C05D48F0004666B /* Supporting Files */,
+			);
+			path = iSpyDemo;
+			sourceTree = "<group>";
+		};
+		B175FA311C05D48F0004666B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B175FA321C05D48F0004666B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B175FA481C05D4D90004666B /* iSpy */ = {
+			isa = PBXGroup;
+			children = (
+				B1F19BFC1C1929F400643820 /* View */,
+				B1F19BFB1C1929F400643820 /* Utility */,
+				B1F19BF31C1929F400643820 /* Category */,
+				B175FA491C05D54A0004666B /* ISpy.h */,
+				B175FA4A1C05D54A0004666B /* ISpy.m */,
+			);
+			name = iSpy;
+			path = ../iSpy;
+			sourceTree = "<group>";
+		};
+		B1F19BF31C1929F400643820 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				B168A1E61C96C349000BF096 /* UIView+ISpyPlaceHolder.h */,
+				B168A1E71C96C349000BF096 /* UIView+ISpyPlaceHolder.m */,
+				B1F19BF91C1929F400643820 /* UIView+ISpyLayer.h */,
+				B1F19BFA1C1929F400643820 /* UIView+ISpyLayer.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		B1F19BFB1C1929F400643820 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				B1F19C061C192AE500643820 /* ISpyConfig.h */,
+				B1F19C071C192AE500643820 /* ISpyConfig.m */,
+				B1F19C081C192AE500643820 /* ISpyMacros.h */,
+				B1F19C091C192AE500643820 /* ISpySystemInfo.h */,
+				B1F19C0A1C192AE500643820 /* ISpySystemInfo.m */,
+				B168A1DD1C91801D000BF096 /* ISpyViewTreeScanner.h */,
+				B168A1DE1C91801D000BF096 /* ISpyViewTreeScanner.m */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		B1F19BFC1C1929F400643820 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B1F19BFF1C1929F400643820 /* ISpyView.h */,
+				B1F19C001C1929F400643820 /* ISpyView.m */,
+				B1F19C0D1C192B8300643820 /* ISpyStatsView.h */,
+				B1F19C0E1C192B8300643820 /* ISpyStatsView.m */,
+				B1B2846F1C2BB72900F0F6F3 /* ISpyMoreView.h */,
+				B1B284701C2BB72900F0F6F3 /* ISpyMoreView.m */,
+				B168A1E01C929D41000BF096 /* ISpyTreeView.h */,
+				B168A1E11C929D41000BF096 /* ISpyTreeView.m */,
+				B168A1E31C92D10C000BF096 /* ISpyTreeViewCell.h */,
+				B168A1E41C92D10D000BF096 /* ISpyTreeViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B5249887A1A329099298E3E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0D5072772AA474429B9CEBB3 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C331E66D4CF2C93200BBC160 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0E26A38AF6A512C42EEA0D7D /* Pods.debug.xcconfig */,
+				ECF382B77794133DB8319A9C /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B175FA2D1C05D48F0004666B /* iSpyDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B175FA451C05D48F0004666B /* Build configuration list for PBXNativeTarget "iSpyDemo" */;
+			buildPhases = (
+				F4E3FF3EB51B11646D19E2CC /* Check Pods Manifest.lock */,
+				B175FA2A1C05D48F0004666B /* Sources */,
+				B175FA2B1C05D48F0004666B /* Frameworks */,
+				B175FA2C1C05D48F0004666B /* Resources */,
+				A348C0FABC43401019E28A64 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iSpyDemo;
+			productName = iSpyDemo;
+			productReference = B175FA2E1C05D48F0004666B /* iSpyDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B175FA261C05D48E0004666B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = lessfun.com;
+				TargetAttributes = {
+					B175FA2D1C05D48F0004666B = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = B175FA291C05D48E0004666B /* Build configuration list for PBXProject "iSpyDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B175FA251C05D48E0004666B;
+			productRefGroup = B175FA2F1C05D48F0004666B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B175FA2D1C05D48F0004666B /* iSpyDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B175FA2C1C05D48F0004666B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B175FA411C05D48F0004666B /* LaunchScreen.storyboard in Resources */,
+				B175FA3E1C05D48F0004666B /* Assets.xcassets in Resources */,
+				B175FA3C1C05D48F0004666B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A348C0FABC43401019E28A64 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4E3FF3EB51B11646D19E2CC /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B175FA2A1C05D48F0004666B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B175FA391C05D48F0004666B /* MainViewController.m in Sources */,
+				B1B284711C2BB72900F0F6F3 /* ISpyMoreView.m in Sources */,
+				B1F19C0F1C192B8300643820 /* ISpyStatsView.m in Sources */,
+				B1F19C0B1C192AE500643820 /* ISpyConfig.m in Sources */,
+				B1F19C031C1929F400643820 /* UIView+ISpyLayer.m in Sources */,
+				B175FA361C05D48F0004666B /* AppDelegate.m in Sources */,
+				B168A1E21C929D41000BF096 /* ISpyTreeView.m in Sources */,
+				B168A1DF1C91801D000BF096 /* ISpyViewTreeScanner.m in Sources */,
+				B1F19C0C1C192AE500643820 /* ISpySystemInfo.m in Sources */,
+				B1ECE2371C109E2700320289 /* MovieDetailViewController.m in Sources */,
+				B1ECE2341C109C7F00320289 /* MovieListViewController.m in Sources */,
+				B1F19C051C1929F400643820 /* ISpyView.m in Sources */,
+				B168A1E51C92D10D000BF096 /* ISpyTreeViewCell.m in Sources */,
+				B175FA4B1C05D54A0004666B /* ISpy.m in Sources */,
+				B175FA331C05D48F0004666B /* main.m in Sources */,
+				B168A1E81C96C349000BF096 /* UIView+ISpyPlaceHolder.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B175FA3A1C05D48F0004666B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B175FA3B1C05D48F0004666B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B175FA3F1C05D48F0004666B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B175FA401C05D48F0004666B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B175FA431C05D48F0004666B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		B175FA441C05D48F0004666B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B175FA461C05D48F0004666B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E26A38AF6A512C42EEA0D7D /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = iSpyDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lessfun.iSpyDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B175FA471C05D48F0004666B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECF382B77794133DB8319A9C /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = iSpyDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lessfun.iSpyDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B175FA291C05D48E0004666B /* Build configuration list for PBXProject "iSpyDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B175FA431C05D48F0004666B /* Debug */,
+				B175FA441C05D48F0004666B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B175FA451C05D48F0004666B /* Build configuration list for PBXNativeTarget "iSpyDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B175FA461C05D48F0004666B /* Debug */,
+				B175FA471C05D48F0004666B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B175FA261C05D48E0004666B /* Project object */;
+}
