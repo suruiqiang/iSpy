@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class ISpyViewPropertyInfo;
 
 @interface ISpyTreeViewCell : UITableViewCell
 
@@ -30,10 +31,10 @@
 @interface ISpyPropTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) id<ISpyPropTableViewCellDelegate> delegate;
-@property (strong, nonatomic) NSDictionary *props;
+@property (strong, nonatomic) ISpyViewPropertyInfo *prop;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString  *)reuseIdentifier;
 
-- (void)configWithProps:(NSDictionary *)props;
+- (void)configWithPropertyInfo:(ISpyViewPropertyInfo *)prop;
 
 @end

@@ -106,11 +106,11 @@
     // Configure the view for the selected state
 }
 
-- (void)configWithProps:(NSDictionary *)props {
+- (void)configWithPropertyInfo:(ISpyViewPropertyInfo *)prop {
     // name type value
-    self.props = props;
-    self.titleLabel.text = [NSString stringWithFormat:@"name: %@, type: %@, value:", props[kISpyViewPropValueKeyName], props[kISpyViewPropValueKeyType]];
-    self.valueTextField.text = props[kISpyViewPropValueKeyValue];
+    self.prop = prop;
+    self.titleLabel.text = [NSString stringWithFormat:@"name: %@, type: %@, value:", prop.name, prop.type];
+    self.valueTextField.text = prop.value;
 }
 
 #pragma mark - UITextFieldDelegate

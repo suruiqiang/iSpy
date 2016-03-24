@@ -13,37 +13,27 @@
 #import <math.h>
 #import <QuartzCore/QuartzCore.h>
 
-NSString * const kISpyViewDescKeyView = @"ispy_view";
-NSString * const kISpyViewDescKeyClass = @"ispy_class";
-NSString * const kISpyViewDescKeyID = @"ispy_id";
-NSString * const kISpyViewDescKeyProps = @"ispy_props";
-NSString * const kISpyViewDescKeySubviews = @"ispy_subviews";
 
-NSString * const kISpyViewPropKeyName = @"name";
-NSString * const kISpyViewPropKeyProps = @"props";
+#pragma mark - ISpyViewInfo
 
-NSString * const kISpyViewPropValueKeyName = @"name";
-NSString * const kISpyViewPropValueKeyType = @"type";
-NSString * const kISpyViewPropValueKeyValue = @"value";
-
-#pragma mark - ISpyViewDummy
-
-@interface ISpyViewDummy : NSObject
-
-@property (weak, nonatomic) UIView *realView;
+@implementation ISpyViewInfo
 
 @end
 
-@implementation ISpyViewDummy
 
-- (id)initWithView:(UIView *)view {
-    if (self = [super init]) {
-        _realView = view;
-    }
-    return self;
-}
+#pragma mark - ISpyViewPropertyCategory
+
+@implementation ISpyViewPropertyCategory
 
 @end
+
+
+#pragma mark - ISpyViewPropertyInfo
+
+@implementation ISpyViewPropertyInfo
+
+@end
+
 
 #pragma mark - ISpyViewTreeScanner
 
@@ -51,7 +41,7 @@ NSString * const kISpyViewPropValueKeyValue = @"value";
 
 #pragma mark - Public
 
-+ (NSArray *)allWindowViewProperties {
++ (NSArray *)allWindowViewInfos {
     UIApplication *app = [UIApplication sharedApplication];
     NSMutableArray *windowViews = [NSMutableArray array];
     
@@ -59,9 +49,9 @@ NSString * const kISpyViewPropValueKeyValue = @"value";
         
         void (^scanViewProperties)() = ^() {
             for (UIWindow *window in app.windows) {
-                NSDictionary* windowDict = [self propertiesWithView:window];
-                if (windowDict) {
-                    [windowViews addObject:windowDict];
+                ISpyViewInfo* viewInfo = [self infoWithView:window];
+                if (viewInfo) {
+                    [windowViews addObject:viewInfo];
                 }
             }
         };
@@ -71,67 +61,54 @@ NSString * const kISpyViewPropValueKeyValue = @"value";
     return windowViews;
 }
 
-/**
- *
- *
- *  @param view
- *
- *  @return Dict<class : String,
-                 props : <Array>,
-                 views : <Array>,
-                >
- */
-+ (NSDictionary *)propertiesWithView:(UIView *)view {
++ (ISpyViewInfo *)infoWithView:(UIView *)view {
     if (view) {
         if (view.tag == kISpyPlaceHolderViewTag || view.tag == kISpyViewTag) {
             return nil;
         }
-        NSMutableDictionary *viewDesc = [NSMutableDictionary dictionary];
-        
-        // Dummy
-        ISpyViewDummy *dummy = [[ISpyViewDummy alloc] initWithView:view];
-        [viewDesc setValue:dummy forKey:kISpyViewDescKeyView];
+        ISpyViewInfo *info = [ISpyViewInfo new];
+        info.weakView = view;
+        info.pointerID = [NSNumber numberWithLong:(long)view];
         
         // Base properties
         NSString *className = [[view class] description];
         NSString *objectName = view.accessibilityLabel ? [NSString stringWithFormat:@"%@ : %@", view.accessibilityLabel, className] : className;
-        [viewDesc setValue:objectName forKey:kISpyViewDescKeyClass];
-        [viewDesc setValue:[NSNumber numberWithLong:(long)view] forKey:kISpyViewDescKeyID];
+        info.className = objectName;
         
         // Properties from super classes
-        NSMutableArray *properties = [NSMutableArray array];
+        NSMutableArray *propertieCategories = [NSMutableArray array];
         
         // UIGeometry properties
-        [self safeAddObject:[self dictionaryWithName:@"UIGeometry" props:[self uiGeometryPropertiesWithView:view]] toArray:properties];
+        [self safeAddObject:[self propertyCategoryWithName:@"UIGeometry" props:[self uiGeometryPropertiesWithView:view]] toArray:propertieCategories];
         
         // UIRendering
-        [self safeAddObject:[self dictionaryWithName:@"UIViewRendering" props:[self uiViewRenderingPropertiesWithView:view]] toArray:properties];
+        [self safeAddObject:[self propertyCategoryWithName:@"UIViewRendering" props:[self uiViewRenderingPropertiesWithView:view]] toArray:propertieCategories];
         
         // CALayer
-        [self safeAddObject:[self dictionaryWithName:@"CALayer" props:[self propertiesWithClass:[CALayer class] object:view.layer]] toArray:properties];
+        [self safeAddObject:[self propertyCategoryWithName:@"CALayer" props:[self propertiesWithClass:[CALayer class] object:view.layer]] toArray:propertieCategories];
         
         // Classes
         Class class = [view class];
         if (class != [NSClassFromString(@"UIButtonLabel") class]) {
 #warning TODO - will change button label frame
             while (class != [NSObject class]) {
-                [self safeAddObject:[self dictionaryWithName:[class description] props:[self propertiesWithClass:class object:view]] toArray:properties];
+                [self safeAddObject:[self propertyCategoryWithName:[class description] props:[self propertiesWithClass:class object:view]] toArray:propertieCategories];
                 class = [class superclass];
             }
         }
         
-        [viewDesc setValue:properties forKey:kISpyViewDescKeyProps];
+        info.propertyCategories = propertieCategories;
         
         // Subviews
-        NSMutableArray *subViewsArray = [NSMutableArray array];
+        NSMutableArray *subviewInfos = [NSMutableArray array];
         for (UIView *subview in [view subviews]) {
-            NSDictionary *subviewDictionary = [self propertiesWithView:subview];
-            if (subviewDictionary) {
-                [subViewsArray addObject:subviewDictionary];
+            ISpyViewInfo *subviewInfo = [self infoWithView:subview];
+            if (subviewInfo) {
+                [subviewInfos addObject:subviewInfo];
             }
         }
-        [viewDesc setValue:subViewsArray forKey:kISpyViewDescKeySubviews];
-        return viewDesc;
+        info.subviewInfos = subviewInfos;
+        return info;
     }
     return nil;
 }
@@ -147,27 +124,6 @@ NSString * const kISpyViewPropValueKeyValue = @"value";
         }
     }
     return nil;
-}
-
-+ (UIView *)viewForProperties:(NSDictionary *)properties {
-    ISpyViewDummy *dummy = properties[kISpyViewDescKeyView];
-    return [dummy realView];
-}
-
-+ (NSString *)classNameForProperties:(NSDictionary *)properties {
-    return [NSString stringWithFormat:@"%@", properties[kISpyViewDescKeyClass]];
-}
-
-+ (long)idForProperties:(NSDictionary *)properties {
-    return [properties[kISpyViewDescKeyID] longValue];
-}
-
-+ (NSArray *)propsForProperties:(NSDictionary *)properties {
-    return properties[kISpyViewDescKeyProps];
-}
-
-+ (NSArray *)subviewsForProperties:(NSDictionary *)properties {
-    return properties[kISpyViewDescKeySubviews];
 }
 
 + (id)valueWithType:(NSString *)type valueString:(NSString *)valueStr {
@@ -245,7 +201,7 @@ NSString * const kISpyViewPropValueKeyValue = @"value";
             }
         }
         
-        [self safeAddObject:[self propertyDescForOboject:obj withName:propertyName] toArray:propertiesArray];
+        [self safeAddObject:[self propertyInfoForOboject:obj withName:propertyName] toArray:propertiesArray];
     }
     free(properties);
     return propertiesArray;
@@ -257,9 +213,9 @@ NSString * const kISpyViewPropValueKeyValue = @"value";
     NSArray *propNames = @[@"frame", @"bounds", @"center", @"transform"];
     
     for (NSString *name in propNames) {
-        [self safeAddObject:[self propertyDescForOboject:view withName:name] toArray:properties];
+        [self safeAddObject:[self propertyInfoForOboject:view withName:name] toArray:properties];
     }
-    [self safeAddObject:[self dictionaryWithName:@"layer.transform" type:@"CATransform3D" value:NSStringFromCATransform3D(view.layer.transform)] toArray:properties];
+//    [self safeAddObject:[self propertyInfoWithName:@"layer.transform" type:@"CATransform3D" value:NSStringFromCATransform3D(view.layer.transform)] toArray:properties];
     
     return properties;
 }
@@ -267,34 +223,32 @@ NSString * const kISpyViewPropValueKeyValue = @"value";
 + (NSArray *)uiViewRenderingPropertiesWithView:(UIView *)view {
     NSMutableArray *properties = [NSMutableArray array];
 
-    NSArray *propNames = @[@"clipsToBounds", @"backgroundColor", @"alpha", @"opaque", @"hidden", @"contentMode", @"clearsContextBeforeDrawing"];
-    
+    NSArray *propNames = @[@"isHidden", @"backgroundColor", @"alpha", @"opaque", @"clipsToBounds", @"contentMode", @"clearsContextBeforeDrawing"];
+
     for (NSString *name in propNames) {
-        [self safeAddObject:[self propertyDescForOboject:view withName:name] toArray:properties];
+        [self safeAddObject:[self propertyInfoForOboject:view withName:name] toArray:properties];
     }
     
     return properties;
 }
 
-+ (NSDictionary *)dictionaryWithName:(NSString *)name props:(NSArray *)props  {
-    if(name && props) {
-        return @{kISpyViewPropKeyName  : name,
-                 kISpyViewPropKeyProps : props};
-    }
-    return nil;
++ (ISpyViewPropertyCategory *)propertyCategoryWithName:(NSString *)name props:(NSArray *)props  {
+    ISpyViewPropertyCategory *info = [ISpyViewPropertyCategory new];
+    info.category = name;
+    info.propertyInfos = props;
+    return info;
 }
 
-+ (NSDictionary *)dictionaryWithName:(NSString *)name type:(NSString *)type value:(NSString *)value {
-    if (name && type && value) {
-        return @{kISpyViewPropValueKeyName  : name,
-                 kISpyViewPropValueKeyType  : type,
-                 kISpyViewPropValueKeyValue : value};
-    }
-    return nil;
++ (ISpyViewPropertyInfo *)propertyInfoWithName:(NSString *)name type:(NSString *)type value:(NSString *)value {
+    ISpyViewPropertyInfo *info = [ISpyViewPropertyInfo new];
+    info.name = name;
+    info.type = type;
+    info.value = value;
+    return info;
 }
 
 // https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
-+ (NSDictionary *)propertyDescForOboject:(id)obj withName:(NSString *)name {
++ (ISpyViewPropertyInfo *)propertyInfoForOboject:(id)obj withName:(NSString *)name {
     if (obj && name) {
         if ([self.ignorePropertyNames containsObject:name]) {
             return nil;
@@ -334,7 +288,9 @@ NSString * const kISpyViewPropValueKeyValue = @"value";
             } else if (strcmp(pObjCType, @encode(long)) == 0) {
                 typeStr = @"long";
                 valueStr = NSStringFromLong([value longValue]);
-            } else if (strcmp(pObjCType, @encode(BOOL)) == 0) {
+            } else if (strcmp(pObjCType, @encode(BOOL)) == 0
+                       || value == (void*)kCFBooleanFalse
+                       || value == (void*)kCFBooleanTrue) {
                 typeStr = @"BOOL";
                 valueStr = NSStringFromBOOL([value boolValue]);
             } else if (strcmp(pObjCType, @encode(char)) == 0) {
@@ -373,7 +329,7 @@ NSString * const kISpyViewPropValueKeyValue = @"value";
                     typeStr = [strObjcType substringWithRange:NSMakeRange(1, [strObjcType rangeOfString:@"="].location - 1)];
                     valueStr = [NSString stringWithFormat:@"%@", [value description]];
                 } else {
-                    //NSLog(@"failed to get propertyDescForOboject: %@ withName: %@, value: %@", obj, name, value);
+                    //NSLog(@"failed to get propertyInfoForOboject: %@ withName: %@, value: %@", obj, name, value);
                 }
             } else {
                 typeStr = NSStringFromClass([value class]);
@@ -382,8 +338,8 @@ NSString * const kISpyViewPropValueKeyValue = @"value";
         }
         
         if (typeStr && valueStr && ![typeStr isEqualToString:@"?"]) {
-            //NSLog(@"propertyDescForOboject: %@ withName: %@, value: %@", obj, name, valueStr);
-            return [self dictionaryWithName:name type:typeStr value:valueStr];
+            //NSLog(@"propertyInfoForOboject: %@ withName: %@, value: %@", obj, name, valueStr);
+            return [self propertyInfoWithName:name type:typeStr value:valueStr];
         }
     }
     

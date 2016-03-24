@@ -26,8 +26,8 @@ static const CGFloat kISpySectionFontSize = 16;
 @property (strong, nonatomic) NSArray *allResults;
 
 @property (strong, nonatomic) UITableView *propTableView;
-@property (strong, nonatomic) NSDictionary *currentItem;
-@property (strong, nonatomic) NSArray *currentItemProps;
+@property (strong, nonatomic) ISpyViewInfo *currentViewInfo;
+@property (strong, nonatomic) NSArray *currentViewPropertyCategories;
 
 @end
 
@@ -119,13 +119,15 @@ static const CGFloat kISpySectionFontSize = 16;
     if (item == nil) {
         return [self.allResults count];
     }
-    
-    return [[ISpyViewTreeScanner subviewsForProperties:item] count];
+    ISpyViewInfo *viewInfo = (ISpyViewInfo *)item;
+    return viewInfo.subviewInfos.count;
 }
 
 - (UITableViewCell *)treeView:(RATreeView *)treeView cellForItem:(nullable id)item {
+    ISpyViewInfo *viewInfo = (ISpyViewInfo *)item;
+    
     NSInteger level = [self.treeView levelForCellForItem:item];
-    NSInteger numberOfChildren = [[ISpyViewTreeScanner subviewsForProperties:item] count];
+    NSInteger numberOfChildren = [[item subviewInfos] count];
 //    BOOL expanded = [self.treeView isCellForItemExpanded:item];
     
     static NSString *treeCellID = @"ISpyTreeViewCell";
@@ -138,8 +140,8 @@ static const CGFloat kISpySectionFontSize = 16;
     }
     
     NSString *prefix = numberOfChildren ? @"-" : @"*";
-    [cell configWithTitle:[NSString stringWithFormat:@"%@ %@", prefix, [ISpyViewTreeScanner classNameForProperties:item]]
-                   detail:[NSString stringWithFormat:@"%ld subview%@, id: %ld", (long)numberOfChildren, numberOfChildren > 1 ? @"s" : @"", [ISpyViewTreeScanner idForProperties:item]]
+    [cell configWithTitle:[NSString stringWithFormat:@"%@ %@", prefix, viewInfo.className]
+                   detail:[NSString stringWithFormat:@"%ld subview%@, id: %ld", (long)numberOfChildren, numberOfChildren > 1 ? @"s" : @"", viewInfo.pointerID.longValue]
                     level:level];
 
     return cell;
@@ -150,7 +152,8 @@ static const CGFloat kISpySectionFontSize = 16;
         return [self.allResults objectAtIndex:index];
     }
     
-    return [[ISpyViewTreeScanner subviewsForProperties:item] objectAtIndex:index];//NSDictionary
+    ISpyViewInfo *viewInfo = (ISpyViewInfo *)item;
+    return [viewInfo.subviewInfos objectAtIndex:index];
 }
 
 #pragma mark - RATreeViewDelegate
@@ -161,28 +164,29 @@ static const CGFloat kISpySectionFontSize = 16;
 }
 
 - (void)treeView:(RATreeView *)treeView didSelectRowForItem:(id)item {
-    UIView *view = [ISpyViewTreeScanner viewForProperties:item];
+    ISpyViewInfo *viewInfo = (ISpyViewInfo *)item;
+    UIView *view = viewInfo.weakView;
     if (view) {
         [view is_highlightBorder];
     }
     
-    [self updatePropsWithItem:item];
+    [self updatePropsWithViewInfo:item];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.currentItemProps.count;
+    return self.currentViewPropertyCategories.count;
 }
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    NSDictionary *props = [self.currentItemProps objectAtIndex:section];
+//    NSDictionary *props = [self.currentViewPropertyCategories objectAtIndex:section];
 //    return props[kISpyViewPropKeyName];
 //}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSDictionary *props = [self.currentItemProps objectAtIndex:section];
-    return [props[kISpyViewPropKeyProps] count];
+    ISpyViewPropertyCategory *category = [self.currentViewPropertyCategories objectAtIndex:section];
+    return category.propertyInfos.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -197,10 +201,9 @@ static const CGFloat kISpySectionFontSize = 16;
         cell.delegate = self;
     }
     
-    NSDictionary *props = [self.currentItemProps objectAtIndex:indexPath.section];
-    NSArray *list = props[kISpyViewPropKeyProps];
-    NSDictionary *prop = [list objectAtIndex:indexPath.row];
-    [cell configWithProps:prop];
+    ISpyViewPropertyCategory *propCategory = [self.currentViewPropertyCategories objectAtIndex:indexPath.section];
+    ISpyViewPropertyInfo *prop = [propCategory.propertyInfos objectAtIndex:indexPath.row];
+    [cell configWithPropertyInfo:prop];
     return cell;
 }
 
@@ -227,8 +230,8 @@ static const CGFloat kISpySectionFontSize = 16;
         [headerView.contentView addSubview:titleLabel];
     }
     
-    NSDictionary *props = [self.currentItemProps objectAtIndex:section];
-    titleLabel.text = props[kISpyViewPropKeyName];
+    ISpyViewPropertyCategory *propCategory = [self.currentViewPropertyCategories objectAtIndex:section];
+    titleLabel.text = propCategory.category;
     
     return headerView;
 }
@@ -247,12 +250,12 @@ static const CGFloat kISpySectionFontSize = 16;
 
 - (void)ispyPropTableViewCell:(ISpyPropTableViewCell *)cell didChangeValue:(NSString *)value {
     //TODO:
-    UIView *view = [ISpyViewTreeScanner viewForProperties:self.currentItem];
+    UIView *view = [self.currentViewInfo weakView];
     if (view) {
-        NSValue *newValue = [ISpyViewTreeScanner valueWithType:cell.props[kISpyViewPropValueKeyType] valueString:value];
+        NSValue *newValue = [ISpyViewTreeScanner valueWithType:cell.prop.type valueString:value];
         if (newValue) {
             @try {
-                [view setValue:newValue forKey:cell.props[kISpyViewPropValueKeyName]];
+                [view setValue:newValue forKey:cell.prop.name];
             }
             @catch (NSException *exception) {
                 
@@ -289,19 +292,19 @@ static const CGFloat kISpySectionFontSize = 16;
     [self.refreshControl endRefreshing];
     [self.treeView reloadData];
     
-    // Load first view's props
-    NSDictionary *item = self.allResults.count ? self.allResults[0] : nil;
-    [self.treeView selectRowForItem:item animated:NO scrollPosition:RATreeViewScrollPositionNone];
-    [self updatePropsWithItem:item];
+    // Load first view's info
+    ISpyViewInfo *viewInfo = self.allResults.count ? self.allResults[0] : nil;
+    [self.treeView selectRowForItem:viewInfo animated:NO scrollPosition:RATreeViewScrollPositionNone];
+    [self updatePropsWithViewInfo:viewInfo];
 }
 
 - (void)loadResults {
-    self.allResults = [ISpyViewTreeScanner allWindowViewProperties];
+    self.allResults = [ISpyViewTreeScanner allWindowViewInfos];
 }
 
-- (void)updatePropsWithItem:(NSDictionary *)item {
-    self.currentItem = item;
-    self.currentItemProps = item ? [ISpyViewTreeScanner propsForProperties:item] : nil;
+- (void)updatePropsWithViewInfo:(ISpyViewInfo *)viewInfo {
+    self.currentViewInfo = viewInfo;
+    self.currentViewPropertyCategories = viewInfo ? viewInfo.propertyCategories : nil;
     [self.propTableView reloadData];
 }
 

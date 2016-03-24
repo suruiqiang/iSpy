@@ -8,36 +8,63 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString * const kISpyViewDescKeyView;
-extern NSString * const kISpyViewDescKeyClass;
-extern NSString * const kISpyViewDescKeyID;
-extern NSString * const kISpyViewDescKeyProps;
-extern NSString * const kISpyViewDescKeySubviews;
 
-extern NSString * const kISpyViewPropKeyName;
-extern NSString * const kISpyViewPropKeyProps;
+#pragma mark -
 
-extern NSString * const kISpyViewPropValueKeyName;
-extern NSString * const kISpyViewPropValueKeyType;
-extern NSString * const kISpyViewPropValueKeyValue;
+@interface ISpyViewInfo : NSObject
+
+@property (strong, nonatomic) NSString *className;
+@property (weak, nonatomic) UIView *weakView;
+@property (strong, nonatomic) NSNumber *pointerID;
+@property (strong, nonatomic) NSArray *propertyCategories; /**< ISpyViewPropertyCategory */
+@property (strong, nonatomic) NSArray *subviewInfos; /**< ISpyViewInfo */
+
+@end
+
+
+#pragma mark -
+
+
+@interface ISpyViewPropertyCategory : NSObject
+
+@property (strong, nonatomic) NSString *category;
+@property (strong, nonatomic) NSArray *propertyInfos; /**< ISpyViewPropertyEntry */
+
+@end
+
+
+#pragma mark -
+
+
+@interface ISpyViewPropertyInfo : NSObject
+
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *type;
+@property (strong, nonatomic) NSString *value;
+
+@end
+
+
+#pragma mark -
+
 
 @interface ISpyViewTreeScanner : NSObject
 
 /**
- *  Get all views and properties
+ *  Get all views and infos
  *
- *  @return NSArray<Dict<obj : ISpyViewDummy, class : NSString, id : NSString, views : NSArray, props : NSArray>, ...>
+ *  @return NSArray<ISpyViewInfo>
  */
-+ (NSArray *)allWindowViewProperties;
++ (NSArray *)allWindowViewInfos;
 
 /**
- *  Get properties of view
+ *  Get view info
  *
  *  @param view
  *
- *  @return Dict<obj : ISpyViewDummy, class : NSString, id : NSString, views : NSArray, props : NSArray>
+ *  @return ISpyViewInfo
  */
-+ (NSDictionary *)propertiesWithView:(UIView *)view;
++ (ISpyViewInfo *)infoWithView:(UIView *)view;
 
 /**
  *  Find view by pointer value
@@ -47,44 +74,6 @@ extern NSString * const kISpyViewPropValueKeyValue;
  *  @return view
  */
 + (UIView *)viewWithId:(long)Id;
-
-/**
- *  Get view in dummy obj from properties
- *
- *  @param properties
- *
- *  @return view
- */
-+ (UIView *)viewForProperties:(NSDictionary *)properties;
-
-/**
- *  Get class name from properties
- *
- *  @param properties
- *
- *  @return name
- */
-+ (NSString *)classNameForProperties:(NSDictionary *)properties;
-
-+ (long)idForProperties:(NSDictionary *)properties;
-
-/**
- *  Get props from properties
- *
- *  @param properties
- *
- *  @return NSArray<Dict<name : string, props : array<Dict<name, type, value>, Dict<name, type, value>>>, Dict<key, array>, ...>
- */
-+ (NSArray *)propsForProperties:(NSDictionary *)properties;
-
-/**
- *  Get subviews from properties
- *
- *  @param properties
- *
- *  @return NSArray<Dict<obj : ISpyViewDummy, class : NSString, id : NSString, views : NSArray, props : NSArray>, ...>
- */
-+ (NSArray *)subviewsForProperties:(NSDictionary *)properties;
 
 + (id)valueWithType:(NSString *)type valueString:(NSString *)valueStr;
 

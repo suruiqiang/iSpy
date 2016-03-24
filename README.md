@@ -3,10 +3,11 @@ iSpy for iOS allows you to show UIView's size, cpu/memory/network information, a
 
 ## ScreenShot
 
-![iSpy Place Holder](https://raw.githubusercontent.com/tinymind/iSpy/master/ISpy_Example_PlaceHolder.gif)
-
+Show views hierarchy:  
 ![iSpy View Properties](https://raw.githubusercontent.com/tinymind/iSpy/master/ISpy_Example_ViewProperties.gif)
 
+Show view's placeholder: 
+![iSpy Place Holder](https://raw.githubusercontent.com/tinymind/iSpy/master/ISpy_Example_PlaceHolder.gif)
 
 ## Installation
 
